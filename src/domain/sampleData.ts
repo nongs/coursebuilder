@@ -72,6 +72,7 @@ export const sampleCourseTree: CourseTreeState = {
     [item2.id]: item2
   },
   courseIds: [course.id],
+  selectedWeekId: week1Id,
   selectedPageId: page1Id
 };
 

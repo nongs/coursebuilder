@@ -1,0 +1,102 @@
+.cb-modal__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 1000;
+}
+
+.cb-modal {
+  width: 100%;
+  max-width: 520px;
+  background: #11162a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.cb-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cb-modal__title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.cb-modal__iconbtn {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  color: #e3e7ff;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  transition: background 0.15s ease;
+}
+.cb-modal__iconbtn:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.cb-modal__content {
+  padding: 16px;
+}
+
+.cb-modal__footer {
+  padding: 12px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.cb-btn {
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #e3e7ff;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+.cb-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+.cb-btn--primary {
+  background: linear-gradient(135deg, #5c6bff, #9a6bff);
+  border-color: transparent;
+  color: #f9f9ff;
+}
+.cb-btn--primary:hover {
+  background: linear-gradient(135deg, #6673ff, #a375ff);
+}
+
+.cb-input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(0, 0, 0, 0.2);
+  color: #f5f7ff;
+  outline: none;
+}
+.cb-input:focus {
+  border-color: rgba(92, 107, 255, 0.6);
+  box-shadow: 0 0 0 3px rgba(92, 107, 255, 0.15);
+}
+
+.cb-modal__text {
+  line-height: 1.5;
+  color: rgba(245, 247, 255, 0.9);
+}
+

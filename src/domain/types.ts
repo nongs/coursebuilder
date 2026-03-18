@@ -40,6 +40,7 @@ export interface CourseTreeState {
   pagesById: Record<ID, Page>;
   learningItemsById: Record<ID, LearningItem>;
   courseIds: ID[];
+  selectedWeekId?: ID;
   selectedPageId?: ID;
 }
 

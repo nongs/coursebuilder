@@ -1,0 +1,98 @@
+.cb-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background: rgba(7, 12, 32, 0.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cb-header__left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cb-header__logo {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.cb-header__badge {
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  color: #a7b4ff;
+  background: rgba(92, 107, 255, 0.18);
+  border: 1px solid rgba(92, 107, 255, 0.4);
+}
+
+.cb-header__right {
+  display: flex;
+  gap: 8px;
+}
+
+.cb-header__divider {
+  width: 1px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.14);
+  margin: 0 4px;
+}
+
+.cb-header__course-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(245, 247, 255, 0.92);
+}
+
+.cb-header__iconbtn {
+  width: 28px;
+  height: 28px;
+  margin-left: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  color: #e3e7ff;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  transition: background 0.15s ease, border-color 0.15s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+}
+
+.cb-header__button {
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #e3e7ff;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+.cb-header__button--primary {
+  background: linear-gradient(135deg, #5c6bff, #9a6bff);
+  border-color: transparent;
+  color: #f9f9ff;
+
+  &:hover {
+    background: linear-gradient(135deg, #6673ff, #a375ff);
+  }
+}
+

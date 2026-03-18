@@ -1,0 +1,161 @@
+.cb-weektabs {
+  position: sticky;
+  top: 0; /* main 내부로 들어가도 상단에 붙도록 */
+  z-index: 9;
+  padding: 10px 0;
+  background: rgba(7, 12, 32, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cb-weeksection {
+  position: relative;
+}
+
+.cb-weektabs__bar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 24px;
+}
+
+.cb-weektabs__listwrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.cb-weektabs__list {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+}
+
+.cb-weektabs__list::-webkit-scrollbar {
+  height: 8px;
+}
+.cb-weektabs__list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+}
+
+.cb-weektabs__tab {
+  min-width: 46px;
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 10px 10px 2px 2px; /* 책갈피 느낌 */
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(245, 247, 255, 0.9);
+  background: rgba(255, 255, 255, 0.04);
+  font-weight: 700;
+  transition: background 0.15s ease, transform 0.1s ease, border-color 0.15s ease;
+}
+
+.cb-weektabs__tab:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.cb-weektabs__tab:active {
+  transform: translateY(1px);
+}
+
+.cb-weektabs__tab.is-active {
+  background: rgba(92, 107, 255, 0.22);
+  border-color: rgba(92, 107, 255, 0.55);
+  color: #f9f9ff;
+}
+
+.cb-weektabs__empty {
+  color: rgba(245, 247, 255, 0.7);
+  font-size: 13px;
+}
+
+.cb-weektabs__add {
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  color: #f9f9ff;
+  background: rgba(92, 107, 255, 0.22);
+  border: 1px solid rgba(92, 107, 255, 0.55);
+  white-space: nowrap;
+}
+.cb-weektabs__add:hover {
+  background: rgba(92, 107, 255, 0.28);
+}
+
+.cb-weektabs__scrollbtn {
+  position: absolute;
+  top: 0;
+  height: 34px;
+  width: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: rgba(17, 22, 42, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(245, 247, 255, 0.92);
+  z-index: 2;
+}
+
+.cb-weektabs__scrollbtn--left {
+  left: 0;
+}
+.cb-weektabs__scrollbtn--right {
+  right: 0;
+}
+
+.cb-weekactions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px 24px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cb-weekactions__right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cb-weekactions__btn {
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  color: #e3e7ff;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+.cb-weekactions__btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.cb-weekactions__btn--danger {
+  border-color: rgba(255, 90, 90, 0.4);
+  color: rgba(255, 210, 210, 0.95);
+}
+.cb-weekactions__btn--danger:hover {
+  background: rgba(255, 90, 90, 0.12);
+}
+
+.cb-weekactions__btn.is-active {
+  background: rgba(92, 107, 255, 0.22);
+  border-color: rgba(92, 107, 255, 0.55);
+  color: #f9f9ff;
+}
+
+.cb-weektabs__tab.is-reorder {
+  cursor: grab;
+}
+.cb-weektabs__tab.is-reorder:active {
+  cursor: grabbing;
+}
+
