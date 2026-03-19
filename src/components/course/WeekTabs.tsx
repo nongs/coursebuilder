@@ -3,6 +3,7 @@ import '@styles/course/_week-tabs.scss';
 import { useCourseStore } from '@store/courseStore';
 import type { ID } from '@domain/types';
 import Modal from '@components/common/Modal';
+import Toast from '@components/common/Toast';
 import {
   DndContext,
   DragEndEvent,
@@ -64,6 +65,8 @@ const WeekTabs: React.FC = () => {
 
   const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
   const [isReorderMode, setIsReorderMode] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [toastVariant, setToastVariant] = useState<'default' | 'success' | 'danger'>('default');
   const listRef = useRef<HTMLDivElement | null>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -97,11 +100,15 @@ const WeekTabs: React.FC = () => {
 
   const onClickAddWeek = () => {
     addWeek(courseId);
+    setToastVariant('success');
+    setToastMessage('주차가 추가되었습니다.');
   };
 
   const onClickDuplicateWeek = () => {
     if (!activeWeekId) return;
     duplicateWeek(courseId, activeWeekId);
+    setToastVariant('success');
+    setToastMessage('주차가 복제되었습니다.');
   };
 
   const onToggleReorderMode = () => {
@@ -153,6 +160,11 @@ const WeekTabs: React.FC = () => {
 
   const onClickDeleteWeek = () => {
     if (!activeWeekId) return;
+    if (weekIds.length <= 1) {
+      setToastVariant('danger');
+      setToastMessage('주차는 최소 1개가 필요해서 삭제할 수 없습니다.');
+      return;
+    }
     setIsConfirmDeleteOpen(true);
   };
 
@@ -160,6 +172,8 @@ const WeekTabs: React.FC = () => {
     if (!activeWeekId) return;
     deleteWeek(courseId, activeWeekId);
     setIsConfirmDeleteOpen(false);
+    setToastVariant('success');
+    setToastMessage('주차가 삭제되었습니다.');
   };
 
   if (weekIds.length === 0) {
@@ -201,6 +215,8 @@ const WeekTabs: React.FC = () => {
 
     const next = arrayMove(weekIds, oldIndex, newIndex);
     reorderWeeks(courseId, next);
+    setToastVariant('success');
+    setToastMessage('주차 순서가 변경되었습니다.');
   };
 
   return (
@@ -270,7 +286,13 @@ const WeekTabs: React.FC = () => {
           >
             {isReorderMode ? '순서 편집 종료' : '순서 편집'}
           </button>
-          <button type="button" className="cb-weekactions__btn cb-weekactions__btn--danger" onClick={onClickDeleteWeek}>
+          <button
+            type="button"
+            className={`cb-weekactions__btn cb-weekactions__btn--danger ${
+              weekIds.length <= 1 ? 'is-disabled' : ''
+            }`}
+            onClick={onClickDeleteWeek}
+          >
             주차 삭제
           </button>
         </div>
@@ -297,6 +319,13 @@ const WeekTabs: React.FC = () => {
           정말 삭제할까요?
         </p>
       </Modal>
+
+      <Toast
+        isOpen={toastMessage !== null}
+        message={toastMessage ?? ''}
+        onClose={() => setToastMessage(null)}
+        variant={toastVariant}
+      />
     </div>
   );
 };

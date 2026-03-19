@@ -1,0 +1,139 @@
+.cb-learning__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.cb-learning__title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.cb-learning__empty {
+  color: rgba(245, 247, 255, 0.65);
+  font-size: 13px;
+}
+
+.cb-learning__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cb-li {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  background: rgba(17, 22, 42, 0.65);
+  overflow: hidden;
+}
+
+.cb-li__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cb-select {
+  height: 34px;
+  padding: 0 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(0, 0, 0, 0.2);
+  color: rgba(245, 247, 255, 0.95);
+}
+
+.cb-li__none {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.cb-li__noneInner {
+  color: rgba(245, 247, 255, 0.7);
+  text-align: center;
+}
+
+.cb-li__body {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cb-li__videoFrame {
+  margin-top: 10px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cb-li__videoFrame iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
+
+.cb-quiz {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.12);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cb-quiz__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cb-quiz__label {
+  font-size: 13px;
+  color: rgba(245, 247, 255, 0.78);
+}
+
+.cb-quiz__kinds {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.cb-mcq__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cb-mcq__row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.cb-mcq__input {
+  flex: 1;
+}
+
+.cb-mcq__add {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.cb-learning__footer {
+  margin-top: 14px;
+}
+
+.cb-learning__addbottom {
+  width: 100%;
+}
+

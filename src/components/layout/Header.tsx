@@ -4,11 +4,14 @@ import '@styles/layout/_header.scss';
 import Modal from '@components/common/Modal';
 import CourseTitleModal from '@components/course/CourseTitleModal';
 import { useCourseStore } from '@store/courseStore';
+import Toast from '@components/common/Toast';
 
 const Header: React.FC = () => {
   const [isEditTitleOpen, setIsEditTitleOpen] = React.useState(false);
   const [isConfirmNewCourseOpen, setIsConfirmNewCourseOpen] = React.useState(false);
   const [isCreateCourseOpen, setIsCreateCourseOpen] = React.useState(false);
+  const [toastMessage, setToastMessage] = React.useState<string | null>(null);
+  const [toastVariant, setToastVariant] = React.useState<'default' | 'success' | 'danger'>('default');
 
   const courseId = useCourseStore((s) => s.getActiveCourseId());
   const courseTitle = useCourseStore((s) =>
@@ -42,16 +45,23 @@ const Header: React.FC = () => {
     console.log('TODO: 강의명 저장 클릭', nextTitle);
     if (!courseId) return;
     updateCourseTitle(courseId, nextTitle);
+    setIsEditTitleOpen(false);
+    setToastVariant('success');
+    setToastMessage('강의명이 저장되었습니다.');
   };
 
   const onCreateCourseTitleClick = (nextTitle: string) => {
     console.log('TODO: 새 코스 생성 클릭', nextTitle);
     createCourse(nextTitle);
     setIsCreateCourseOpen(false);
+    setToastVariant('success');
+    setToastMessage('새 코스가 생성되었습니다.');
   };
 
   const onClickSave = () => {
     console.log('TODO: 저장 클릭');
+    setToastVariant('success');
+    setToastMessage('저장을 실행했습니다. (추후 구현 예정)');
   };
 
   return (
@@ -123,6 +133,13 @@ const Header: React.FC = () => {
         mode="create"
         onClose={onCloseCreateCourse}
         onSaveClick={onCreateCourseTitleClick}
+      />
+
+      <Toast
+        isOpen={toastMessage !== null}
+        message={toastMessage ?? ''}
+        onClose={() => setToastMessage(null)}
+        variant={toastVariant}
       />
     </>
   );

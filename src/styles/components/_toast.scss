@@ -1,0 +1,34 @@
+.cb-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  z-index: 2000;
+  pointer-events: none;
+}
+
+.cb-toast__card {
+  pointer-events: none;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgba(17, 22, 42, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(245, 247, 255, 0.95);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  font-size: 13px;
+  line-height: 1.4;
+  max-width: min(520px, calc(100vw - 48px));
+}
+
+.cb-toast__card.is-danger {
+  background: rgba(46, 16, 20, 0.96);
+  border-color: rgba(255, 90, 90, 0.28);
+  color: rgba(255, 230, 230, 0.96);
+}
+
+.cb-toast__card.is-success {
+  background: rgba(14, 34, 24, 0.96);
+  border-color: rgba(70, 220, 140, 0.28);
+  color: rgba(220, 255, 238, 0.96);
+}
+

@@ -37,6 +37,7 @@ const chapter1: Chapter = {
 const page1: Page = {
   id: page1Id,
   title: '코스빌더 개요',
+  description: '이 페이지는 코스빌더의 주요 기능을 소개합니다.',
   learningItemIds: [item1Id, item2Id]
 };
 

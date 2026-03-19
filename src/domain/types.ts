@@ -5,11 +5,23 @@ export interface LearningItem {
   type: 'text' | 'video' | 'quiz' | 'image' | 'embed' | 'unknown';
   title: string;
   description?: string;
+  content?: string;
+  videoUrl?: string;
+  quiz?: {
+    kind: 'short' | 'essay' | 'multiple';
+    shortAnswer?: string;
+    rubric?: string;
+    multiple?: {
+      options: Array<{ id: ID; label: string }>;
+      correctOptionId?: ID;
+    };
+  };
 }
 
 export interface Page {
   id: ID;
   title: string;
+  description?: string;
   learningItemIds: ID[];
 }
 
