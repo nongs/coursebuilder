@@ -80,6 +80,13 @@
 .cb-btn--primary:hover {
   background: linear-gradient(135deg, #6673ff, #a375ff);
 }
+.cb-btn--primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.cb-btn--primary:disabled:hover {
+  background: linear-gradient(135deg, #5c6bff, #9a6bff);
+}
 
 .cb-input {
   width: 100%;
@@ -98,5 +105,32 @@
 .cb-modal__text {
   line-height: 1.5;
   color: rgba(245, 247, 255, 0.9);
+}
+
+.cb-coursemodal__field {
+  margin-bottom: 14px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+.cb-coursemodal__label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(245, 247, 255, 0.85);
+}
+.cb-coursemodal__week {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cb-input--number {
+  width: 80px;
+  text-align: right;
+}
+.cb-coursemodal__unit {
+  font-size: 14px;
+  color: rgba(245, 247, 255, 0.7);
 }
 

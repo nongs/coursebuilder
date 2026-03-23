@@ -5,6 +5,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
   padding: 12px 24px;
   background: rgba(7, 12, 32, 0.96);
   backdrop-filter: blur(12px);
@@ -15,29 +17,65 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  min-width: 0;
+  flex: 1 1 auto;
 }
 
 .cb-header__logo {
+  flex-shrink: 0;
   font-size: 18px;
   font-weight: 700;
   letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
 .cb-header__badge {
+  flex-shrink: 0;
   padding: 3px 8px;
   border-radius: 999px;
   font-size: 11px;
   color: #a7b4ff;
   background: rgba(92, 107, 255, 0.18);
   border: 1px solid rgba(92, 107, 255, 0.4);
+  white-space: nowrap;
+}
+
+.cb-header__save {
+  flex-shrink: 0;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.cb-header__save--saved {
+  color: #8ee9c0;
+  background: rgba(46, 196, 142, 0.14);
+  border: 1px solid rgba(46, 196, 142, 0.35);
+}
+
+.cb-header__save--dirty {
+  color: #ffc48a;
+  background: rgba(255, 166, 77, 0.14);
+  border: 1px solid rgba(255, 166, 77, 0.4);
+}
+
+.cb-header__save--pending {
+  color: rgba(245, 247, 255, 0.45);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .cb-header__right {
+  flex-shrink: 0;
   display: flex;
   gap: 8px;
+  align-items: center;
 }
 
 .cb-header__divider {
+  flex-shrink: 0;
   width: 1px;
   height: 18px;
   background: rgba(255, 255, 255, 0.14);
@@ -45,12 +83,18 @@
 }
 
 .cb-header__course-title {
+  min-width: 0;
+  flex: 1 1 auto;
   font-size: 14px;
   font-weight: 600;
   color: rgba(245, 247, 255, 0.92);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .cb-header__iconbtn {
+  flex-shrink: 0;
   width: 28px;
   height: 28px;
   margin-left: 4px;
@@ -69,12 +113,14 @@
 }
 
 .cb-header__button {
+  flex-shrink: 0;
   padding: 6px 12px;
   border-radius: 8px;
   font-size: 13px;
   color: #e3e7ff;
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.16);
+  white-space: nowrap;
   transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
 
   &:hover {
@@ -93,6 +139,14 @@
 
   &:hover {
     background: linear-gradient(135deg, #6673ff, #a375ff);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  &:disabled:hover {
+    background: linear-gradient(135deg, #5c6bff, #9a6bff);
   }
 }
 

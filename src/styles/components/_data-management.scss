@@ -1,0 +1,49 @@
+.cb-datamgmt__file {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cb-datamgmt__lead {
+  margin-bottom: 12px;
+}
+
+.cb-datamgmt__version {
+  margin: 0 0 16px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: rgba(245, 247, 255, 0.62);
+
+  strong {
+    color: rgba(200, 210, 255, 0.95);
+  }
+}
+
+.cb-datamgmt__code {
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  background: rgba(0, 0, 0, 0.25);
+  color: rgba(200, 210, 255, 0.95);
+}
+
+.cb-datamgmt__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cb-datamgmt__btn {
+  width: 100%;
+  justify-content: center;
+}
+
+.cb-datamgmt__hint {
+  margin: 14px 0 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: rgba(245, 247, 255, 0.55);
+}

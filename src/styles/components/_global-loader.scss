@@ -1,0 +1,26 @@
+.cb-globalloader {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(7, 12, 32, 0.45);
+  backdrop-filter: blur(2px);
+  pointer-events: auto;
+}
+
+.cb-globalloader__spinner {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.12);
+  border-top-color: rgba(146, 158, 255, 0.95);
+  animation: cb-globalloader-spin 0.75s linear infinite;
+}
+
+@keyframes cb-globalloader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

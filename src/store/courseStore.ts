@@ -1,17 +1,47 @@
 import { create } from 'zustand';
-import { sampleCourseTree } from '../domain/sampleData';
-import type { CourseTreeState, ID } from '../domain/types';
+import type {
+  CourseTreeData,
+  CourseTreePersisted,
+  CourseTreeState,
+  ID
+} from '../domain/types';
+import { COURSE_TREE_SCHEMA_VERSION } from '../domain/types';
+import { getDefaultWeekAndPageSelection } from '../domain/courseTreeSelection';
 
-const STORAGE_KEY = 'coursebuilder:courseTree';
+/** 저장/더티 비교용 — 선택 ID 제외, schemaVersion 포함 */
+export function getPersistedSnapshotString(
+  state: Pick<
+    CourseTreeState,
+    | 'courseIds'
+    | 'coursesById'
+    | 'weeksById'
+    | 'chaptersById'
+    | 'pagesById'
+    | 'learningItemsById'
+  >
+): string {
+  const payload: CourseTreePersisted = {
+    schemaVersion: COURSE_TREE_SCHEMA_VERSION,
+    courseIds: state.courseIds,
+    coursesById: state.coursesById,
+    weeksById: state.weeksById,
+    chaptersById: state.chaptersById,
+    pagesById: state.pagesById,
+    learningItemsById: state.learningItemsById
+  };
+  return JSON.stringify(payload);
+}
 
 export interface CourseStore extends CourseTreeState {
-  loadFromStorage: () => void;
-  saveToStorage: () => void;
+  /** API 등에서 받은 스냅샷으로 트리 전체 치환 (진입 시 로드용, 선택은 트리 기준으로 재계산) */
+  hydrate: (state: CourseTreeState) => void;
+  /** 저장 API용 — selectedWeekId / selectedPageId 제외 */
+  getCourseTreeSnapshot: () => CourseTreePersisted;
   selectWeek: (weekId: ID | undefined) => void;
   selectPage: (pageId: ID | undefined) => void;
   getActiveCourseId: () => ID | undefined;
   updateCourseTitle: (courseId: ID, title: string) => void;
-  createCourse: (title: string) => ID;
+  createCourse: (title: string, weekCount?: number) => ID;
   addWeek: (courseId: ID) => ID;
   deleteWeek: (courseId: ID, weekId: ID) => void;
   reorderWeeks: (courseId: ID, orderedWeekIds: ID[]) => void;
@@ -33,38 +63,59 @@ export interface CourseStore extends CourseTreeState {
   deleteLearningItem: (pageId: ID, learningItemId: ID) => void;
 }
 
-const loadInitialState = (): CourseTreeState => {
-  if (typeof window === 'undefined') {
-    return sampleCourseTree;
-  }
-
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) {
-      return sampleCourseTree;
-    }
-    const parsed = JSON.parse(raw) as CourseTreeState;
-    return parsed;
-  } catch {
-    return sampleCourseTree;
-  }
+const emptyCourseTreeState: CourseTreeState = {
+  courseIds: [],
+  coursesById: {},
+  weeksById: {},
+  chaptersById: {},
+  pagesById: {},
+  learningItemsById: {},
+  selectedWeekId: undefined,
+  selectedPageId: undefined
 };
 
 export const useCourseStore = create<CourseStore>((set, get) => ({
-  ...loadInitialState(),
+  ...emptyCourseTreeState,
 
-  loadFromStorage: () => {
-    set(loadInitialState());
+  hydrate: (next) => {
+    const tree: CourseTreeData = {
+      courseIds: next.courseIds,
+      coursesById: next.coursesById,
+      weeksById: next.weeksById,
+      chaptersById: next.chaptersById,
+      pagesById: next.pagesById,
+      learningItemsById: next.learningItemsById
+    };
+    const selection = getDefaultWeekAndPageSelection(tree);
+    set({
+      ...tree,
+      ...selection
+    });
   },
 
-  saveToStorage: () => {
-    if (typeof window === 'undefined') return;
-    const { loadFromStorage: _lf, saveToStorage: _sf, ...rest } = get();
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(rest));
+  getCourseTreeSnapshot: () => {
+    const s = get();
+    return {
+      schemaVersion: COURSE_TREE_SCHEMA_VERSION,
+      courseIds: s.courseIds,
+      coursesById: s.coursesById,
+      weeksById: s.weeksById,
+      chaptersById: s.chaptersById,
+      pagesById: s.pagesById,
+      learningItemsById: s.learningItemsById
+    };
   },
 
   selectWeek: (weekId) => {
-    set({ selectedWeekId: weekId });
+    const state = get();
+    let firstPageId: ID | undefined;
+    if (weekId) {
+      const week = state.weeksById[weekId];
+      const firstChapterId = week?.chapterIds[0];
+      const chapter = firstChapterId ? state.chaptersById[firstChapterId] : undefined;
+      firstPageId = chapter?.pageIds[0];
+    }
+    set({ selectedWeekId: weekId, selectedPageId: firstPageId });
   },
 
   selectPage: (pageId) => {
@@ -91,22 +142,64 @@ export const useCourseStore = create<CourseStore>((set, get) => ({
     }));
   },
 
-  createCourse: (title) => {
+  createCourse: (title, weekCount = 1) => {
     const nextTitle = title.trim();
-    const id = `course-${Date.now()}`;
+    const courseId = `course-${Date.now()}`;
+    const count = Math.max(1, Math.min(99, Math.floor(Number(weekCount) || 1)));
+
+    const weekIds: ID[] = [];
+    const weeksById: Record<ID, { id: ID; title: string; order: number; chapterIds: ID[] }> = {};
+    const chaptersById: Record<ID, { id: ID; title: string; pageIds: ID[] }> = {};
+    const pagesById: Record<ID, { id: ID; title: string; learningItemIds: ID[] }> = {};
+
+    for (let i = 0; i < count; i++) {
+      const base = Date.now() + i;
+      const weekId = `week-${base}`;
+      const chapterId = `chapter-${base}`;
+      const pageId = `page-${base}`;
+
+      weekIds.push(weekId);
+      weeksById[weekId] = {
+        id: weekId,
+        title: `${i + 1}주차`,
+        order: i + 1,
+        chapterIds: [chapterId]
+      };
+      chaptersById[chapterId] = {
+        id: chapterId,
+        title: '기본 챕터',
+        pageIds: [pageId]
+      };
+      pagesById[pageId] = {
+        id: pageId,
+        title: '기본 페이지',
+        learningItemIds: []
+      };
+    }
+
+    const firstWeekId = weekIds[0];
+    const firstPageId = firstWeekId
+      ? chaptersById[weeksById[firstWeekId].chapterIds[0]].pageIds[0]
+      : undefined;
+
     set((state) => ({
-      courseIds: [id, ...state.courseIds],
-      selectedWeekId: undefined,
+      courseIds: [courseId, ...state.courseIds],
       coursesById: {
         ...state.coursesById,
-        [id]: {
-          id,
-          title: nextTitle || '새 코스',
-          weekIds: []
+        [courseId]: {
+          id: courseId,
+          title: nextTitle || '새 강의',
+          weekIds
         }
-      }
+      },
+      weeksById: { ...state.weeksById, ...weeksById },
+      chaptersById: { ...state.chaptersById, ...chaptersById },
+      pagesById: { ...state.pagesById, ...pagesById },
+      selectedWeekId: firstWeekId,
+      selectedPageId: firstPageId
     }));
-    return id;
+
+    return courseId;
   },
 
   addWeek: (courseId) => {

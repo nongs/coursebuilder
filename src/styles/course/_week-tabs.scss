@@ -5,7 +5,6 @@
   padding: 10px 0 0;
   background: rgba(7, 12, 32, 0.92);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .cb-weeksection {
@@ -31,7 +30,6 @@
   gap: 8px;
   align-items: flex-end;
   overflow-x: auto;
-  padding-bottom: 2px;
   scroll-behavior: smooth;
   scrollbar-width: thin;
 }
@@ -50,6 +48,7 @@
   padding: 0 12px;
   border-radius: 10px 10px 2px 2px; /* 책갈피 느낌 */
   border: 1px solid rgba(255, 255, 255, 0.14);
+  border-bottom: none;
   color: rgba(245, 247, 255, 0.9);
   background: rgba(255, 255, 255, 0.04);
   font-weight: 700;
@@ -70,11 +69,6 @@
   color: #f9f9ff;
 }
 
-.cb-weektabs__empty {
-  color: rgba(245, 247, 255, 0.7);
-  font-size: 13px;
-}
-
 .cb-weektabs__add {
   height: 34px;
   padding: 0 12px;
@@ -88,6 +82,13 @@
 }
 .cb-weektabs__add:hover {
   background: rgba(92, 107, 255, 0.28);
+}
+.cb-weektabs__add:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.cb-weektabs__add:disabled:hover {
+  background: rgba(92, 107, 255, 0.22);
 }
 
 .cb-weektabs__scrollbtn {
@@ -117,7 +118,8 @@
   align-items: center;
   justify-content: flex-end;
   padding: 10px 24px 10px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 .cb-weekactions__right {

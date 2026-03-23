@@ -481,11 +481,7 @@ const ChapterTree: React.FC = () => {
         <h3 className="cb-chaptertree__title">챕터</h3>
       </div>
 
-      {!selectedWeekId ? (
-        <div className="cb-chaptertree__empty">선택된 주차가 없습니다.</div>
-      ) : (
-        <>
-          <DndContext
+      <DndContext
             sensors={sensors}
             collisionDetection={collisionDetection}
             onDragStart={onDragStart}
@@ -544,13 +540,16 @@ const ChapterTree: React.FC = () => {
             </DragOverlay>
           </DndContext>
 
-          <div className="cb-chaptertree__footer">
-            <button type="button" className="cb-btn cb-btn--primary" onClick={onClickAddChapter}>
-              + 챕터 추가
-            </button>
-          </div>
-        </>
-      )}
+      <div className="cb-chaptertree__footer">
+        <button
+          type="button"
+          className="cb-btn cb-btn--primary"
+          disabled={!selectedWeekId}
+          onClick={onClickAddChapter}
+        >
+          + 챕터 추가
+        </button>
+      </div>
 
       <Modal
         isOpen={confirmChapterDeleteId !== null}

@@ -94,27 +94,6 @@ const WeekTabs: React.FC = () => {
     return weekIds[0];
   }, [selectedWeekId, weekIds]);
 
-  if (!courseId) {
-    return null;
-  }
-
-  const onClickAddWeek = () => {
-    addWeek(courseId);
-    setToastVariant('success');
-    setToastMessage('주차가 추가되었습니다.');
-  };
-
-  const onClickDuplicateWeek = () => {
-    if (!activeWeekId) return;
-    duplicateWeek(courseId, activeWeekId);
-    setToastVariant('success');
-    setToastMessage('주차가 복제되었습니다.');
-  };
-
-  const onToggleReorderMode = () => {
-    setIsReorderMode((v) => !v);
-  };
-
   const updateScrollState = () => {
     const el = listRef.current;
     if (!el) return;
@@ -142,7 +121,25 @@ const WeekTabs: React.FC = () => {
       el.removeEventListener('scroll', onScroll);
       ro.disconnect();
     };
-  }, []);
+  }, [weekIds.length]);
+
+  const onClickAddWeek = () => {
+    if (!courseId) return;
+    addWeek(courseId);
+    setToastVariant('success');
+    setToastMessage('주차가 추가되었습니다.');
+  };
+
+  const onClickDuplicateWeek = () => {
+    if (!activeWeekId) return;
+    duplicateWeek(courseId, activeWeekId);
+    setToastVariant('success');
+    setToastMessage('주차가 복제되었습니다.');
+  };
+
+  const onToggleReorderMode = () => {
+    setIsReorderMode((v) => !v);
+  };
 
   const scrollByAmount = (dx: number) => {
     const el = listRef.current;
@@ -175,34 +172,6 @@ const WeekTabs: React.FC = () => {
     setToastVariant('success');
     setToastMessage('주차가 삭제되었습니다.');
   };
-
-  if (weekIds.length === 0) {
-    return (
-      <div className="cb-weeksection" aria-label="주차 영역">
-        <div className="cb-weektabs">
-          <div className="cb-weektabs__bar">
-            <div className="cb-weektabs__empty">주차가 없습니다.</div>
-            <button type="button" className="cb-weektabs__add" onClick={onClickAddWeek}>
-              + 주차 추가
-            </button>
-          </div>
-        </div>
-        <div className="cb-weekactions">
-          <div className="cb-weekactions__right">
-            <button type="button" className="cb-weekactions__btn" disabled>
-              주차 복제
-            </button>
-            <button type="button" className="cb-weekactions__btn" disabled>
-              순서 편집
-            </button>
-            <button type="button" className="cb-weekactions__btn" disabled>
-              주차 삭제
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   const onDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
@@ -268,7 +237,12 @@ const WeekTabs: React.FC = () => {
               </button>
             )}
           </div>
-          <button type="button" className="cb-weektabs__add" onClick={onClickAddWeek}>
+          <button
+            type="button"
+            className="cb-weektabs__add"
+            disabled={!courseId}
+            onClick={onClickAddWeek}
+          >
             + 주차 추가
           </button>
         </div>
@@ -276,12 +250,18 @@ const WeekTabs: React.FC = () => {
 
       <div className="cb-weekactions" aria-label="주차 기능">
         <div className="cb-weekactions__right">
-          <button type="button" className="cb-weekactions__btn" onClick={onClickDuplicateWeek}>
+          <button
+            type="button"
+            className="cb-weekactions__btn"
+            disabled={!courseId || !activeWeekId}
+            onClick={onClickDuplicateWeek}
+          >
             주차 복제
           </button>
           <button
             type="button"
             className={`cb-weekactions__btn ${isReorderMode ? 'is-active' : ''}`}
+            disabled={!courseId || !activeWeekId}
             onClick={onToggleReorderMode}
           >
             {isReorderMode ? '순서 편집 종료' : '순서 편집'}
@@ -289,8 +269,9 @@ const WeekTabs: React.FC = () => {
           <button
             type="button"
             className={`cb-weekactions__btn cb-weekactions__btn--danger ${
-              weekIds.length <= 1 ? 'is-disabled' : ''
+              !courseId || weekIds.length <= 1 ? 'is-disabled' : ''
             }`}
+            disabled={!courseId || weekIds.length <= 1}
             onClick={onClickDeleteWeek}
           >
             주차 삭제

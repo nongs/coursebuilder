@@ -48,10 +48,11 @@
     - `coursesById`, `weeksById`, `chaptersById`, `pagesById`, `learningItemsById`
     - `rootCourseId` 또는 다수 코스를 지원하는 경우 `courseIds: string[]`
   - CRUD 및 드래그 앤 드롭에 따른 순서 변경 액션을 제공한다.
-- **영속화(localStorage)**
-  - 스토어 변경 시 직렬화하여 `localStorage`에 저장한다.
-  - 초기 로드 시 `localStorage`에 데이터가 있으면 복원하고, 없으면 기본 샘플 데이터를 사용한다.
-  - 비동기 API 모양을 위해 `Promise` 기반 래퍼(예: `fakeCourseApi`)를 둔다.
+- **영속화(API 형태 + localStorage)**
+  - `@api/courseApi`: `fetchCourseTree()`(진입·새로고침), `saveCourseTree()`(저장 버튼).
+  - 내부 구현은 `localStorage`에 JSON 직렬화/파싱만 수행(실제 DB 대체).
+  - 편집은 메모리(Zustand)에만 반영되고, **저장 버튼**으로만 영속화된다.
+  - 로드/저장 중 전역 로더(`GlobalLoader`)로 화면 차단.
 
 ### 6. UI/UX 방향
 - **레이아웃**

@@ -16,16 +16,11 @@
   color: rgba(245, 247, 255, 0.92);
 }
 
-.cb-chaptertree__empty {
-  color: rgba(245, 247, 255, 0.65);
-  font-size: 13px;
-  padding: 12px 0;
-}
-
 .cb-chaptertree__list {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  min-height: 80px;
 }
 
 .cb-chaptertree__footer {
