@@ -2,6 +2,8 @@
 
 강의 구조(주차 → 챕터 → 페이지 → 학습요소)를 브라우저에서 설계하는 **웹 기반 강의 저작 도구**입니다. 별도 서버 DB 없이 **`localStorage`**에 저장하며, JSON으로 백업·복원할 수 있습니다.
 
+**구현 페이지:** [http://limgeonhong.com/coursebuilder/](http://limgeonhong.com/coursebuilder/)
+
 ---
 
 ## 주요 기능
@@ -86,7 +88,7 @@ npm run check
 
 ## 데이터 저장
 
-- **키**: `coursebuilder:courseTree` (`src/api/courseApi.ts`의 `COURSE_TREE_STORAGE_KEY`)
+- **키**: `coursebuilder:courseTree` (`src/api/courseApi.ts` 내부 상수)
 - 브라우저별·도메인별로 분리됩니다. 다른 PC로 옮길 때는 **데이터 관리 → JSON 내보내기/가져오기**를 사용하세요.
 
 ---

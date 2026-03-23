@@ -61,7 +61,6 @@ const Header: React.FC = () => {
   const onCloseCreateCourse = () => setIsCreateCourseOpen(false);
 
   const onSaveTitleClick = (nextTitle: string) => {
-    console.log('TODO: 강의명 저장 클릭', nextTitle);
     if (!courseId) return;
     updateCourseTitle(courseId, nextTitle);
     setIsEditTitleOpen(false);

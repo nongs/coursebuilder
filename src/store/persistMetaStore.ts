@@ -9,8 +9,6 @@ interface PersistMetaState {
   lastSavedSerialized: string | null;
   /** 현재 스토어 스냅샷을 "저장됨" 기준선으로 맞춤 (초기 로드·저장 성공·가져오기 후) */
   syncBaselineFromStore: () => void;
-  /** 앱 초기화 등 */
-  resetBaseline: () => void;
 }
 
 export const usePersistMetaStore = create<PersistMetaState>((set) => ({
@@ -18,6 +16,5 @@ export const usePersistMetaStore = create<PersistMetaState>((set) => ({
   syncBaselineFromStore: () => {
     const s = useCourseStore.getState();
     set({ lastSavedSerialized: getPersistedSnapshotString(s) });
-  },
-  resetBaseline: () => set({ lastSavedSerialized: null })
+  }
 }));

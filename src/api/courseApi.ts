@@ -1,10 +1,8 @@
 import type { CourseTreePersisted, CourseTreeState } from '@domain/types';
 import { emptyCourseTreeState, normalizeCourseTreeState } from '@domain/courseTreeNormalize';
 
-export { normalizeCourseTreeState } from '@domain/courseTreeNormalize';
-
 /** 로컬스토리지 키 (DB 대체 저장소) */
-export const COURSE_TREE_STORAGE_KEY = 'coursebuilder:courseTree';
+const COURSE_TREE_STORAGE_KEY = 'coursebuilder:courseTree';
 
 const simulateLatency = () =>
   new Promise<void>((resolve) => {
