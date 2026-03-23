@@ -9,14 +9,16 @@ export const COURSE_TREE_SCHEMA_VERSION = 1 as const;
 
 export interface LearningItem {
   id: ID;
-  type: 'text' | 'video' | 'quiz' | 'image' | 'embed' | 'unknown';
+  type: 'text' | 'video' | 'quiz' | 'unknown';
   title: string;
   description?: string;
+  /** TipTap 등으로 편집한 정제 HTML 조각(스크립트 등은 저장 시 제거) */
   content?: string;
   videoUrl?: string;
   quiz?: {
     kind: 'short' | 'essay' | 'multiple';
     shortAnswer?: string;
+    /** 서술형 평가기준 — 정제 HTML */
     rubric?: string;
     multiple?: {
       options: Array<{ id: ID; label: string }>;

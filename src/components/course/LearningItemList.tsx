@@ -6,6 +6,8 @@ import { useCourseStore } from '@store/courseStore';
 import type { ID, LearningItem } from '@domain/types';
 import Radio from '@components/common/Radio';
 
+const RichTextEditor = React.lazy(() => import('@components/common/RichTextEditor'));
+
 const YOUTUBE_REGEX =
   /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{6,})/;
 
@@ -161,8 +163,6 @@ const LearningItemList: React.FC<{ pageId: string }> = ({ pageId }) => {
                     <option value="text">텍스트</option>
                     <option value="video">비디오</option>
                     <option value="quiz">퀴즈</option>
-                    <option value="image">이미지</option>
-                    <option value="embed">임베드</option>
                   </select>
                   <button
                     type="button"
@@ -180,18 +180,25 @@ const LearningItemList: React.FC<{ pageId: string }> = ({ pageId }) => {
                   </div>
                 ) : (
                   <div className="cb-li__body">
+                    <React.Suspense
+                      fallback={<div className="cb-rich cb-rich--loading" aria-busy="true" />}
+                    >
                     <input
                       className="cb-input"
                       placeholder="학습요소명"
                       value={item.title}
                       onChange={(e) => updateLearningItem(id, { title: e.target.value })}
                     />
-                    <textarea
-                      className="cb-textarea"
-                      placeholder="학습요소 상세 내용"
-                      value={item.content ?? ''}
-                      onChange={(e) => updateLearningItem(id, { content: e.target.value })}
-                    />
+                    <div className="cb-li__richtext">
+                      <label className="cb-li__fieldlabel">상세 내용</label>
+                      <RichTextEditor
+                        key={`${id}-content`}
+                        value={item.content ?? ''}
+                        onChange={(html) => updateLearningItem(id, { content: html })}
+                        placeholder="내용을 입력하세요. 링크·이미지는 툴바에서 넣을 수 있습니다."
+                        minHeight={180}
+                      />
+                    </div>
 
                     {item.type === 'quiz' && quiz && (
                       <div className="cb-quiz">
@@ -238,16 +245,20 @@ const LearningItemList: React.FC<{ pageId: string }> = ({ pageId }) => {
                         )}
 
                         {quiz.kind === 'essay' && (
-                          <textarea
-                            className="cb-textarea"
-                            placeholder="평가기준"
-                            value={quiz.rubric ?? ''}
-                            onChange={(e) =>
-                              updateLearningItem(id, {
-                                quiz: { kind: 'essay', rubric: e.target.value }
-                              })
-                            }
-                          />
+                          <div className="cb-li__richtext cb-li__richtext--quiz">
+                            <span className="cb-quiz__label">평가기준</span>
+                            <RichTextEditor
+                              key={`${id}-rubric`}
+                              value={quiz.rubric ?? ''}
+                              onChange={(html) =>
+                                updateLearningItem(id, {
+                                  quiz: { kind: 'essay', rubric: html }
+                                })
+                              }
+                              placeholder="평가 기준을 입력하세요"
+                              minHeight={140}
+                            />
+                          </div>
                         )}
 
                         {quiz.kind === 'multiple' && (
@@ -382,6 +393,7 @@ const LearningItemList: React.FC<{ pageId: string }> = ({ pageId }) => {
                         )}
                       </div>
                     )}
+                    </React.Suspense>
                   </div>
                 )}
               </div>

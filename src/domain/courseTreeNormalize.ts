@@ -1,4 +1,5 @@
 import type { CourseTreeData, CourseTreeState } from './types';
+import { sanitizeLearningItemsInTree } from './sanitizeHtml';
 
 export function emptyCourseTreeState(): CourseTreeState {
   return {
@@ -45,9 +46,9 @@ export function normalizeCourseTreeState(raw: unknown): CourseTreeState {
         : {}
   };
 
-  return {
+  return sanitizeLearningItemsInTree({
     ...data,
     selectedWeekId: undefined,
     selectedPageId: undefined
-  };
+  });
 }

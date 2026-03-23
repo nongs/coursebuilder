@@ -91,6 +91,22 @@
   gap: 10px;
 }
 
+.cb-li__richtext {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cb-li__fieldlabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(245, 247, 255, 0.55);
+}
+
+.cb-li__richtext--quiz {
+  margin-top: 4px;
+}
+
 .cb-li__videoFrame {
   margin-top: 10px;
   border-radius: 12px;
