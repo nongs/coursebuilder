@@ -51,35 +51,47 @@ const PageEditor: React.FC = () => {
     );
   }
 
+  const weekBreadcrumbLabel = weekOrder ? `${weekOrder}주차` : '주차';
+  const chapterBreadcrumbLabel = chapterName || '챕터명이 설정되지 않았습니다';
+  const pageBreadcrumbLabel = page.title.trim() || '페이지명이 설정되지 않았습니다';
+
   return (
     <div className="cb-pageeditor">
       <div className="cb-breadcrumb cb-breadcrumb--flush" aria-label="페이지 경로">
-        <span className="cb-breadcrumb__seg">{weekOrder ? `${weekOrder}주차` : '주차'}</span>
-        <span className="cb-breadcrumb__sep">&gt;</span>
-        <span className={`cb-breadcrumb__seg ${!chapterName ? 'is-muted' : ''}`}>
-          {chapterName || '챕터명이 설정되지 않았습니다'}
+        <span className="cb-breadcrumb__seg" title={weekBreadcrumbLabel}>
+          {weekBreadcrumbLabel}
         </span>
         <span className="cb-breadcrumb__sep">&gt;</span>
-        <span className={`cb-breadcrumb__seg ${!page.title.trim() ? 'is-muted' : ''}`}>
-          {page.title.trim() || '페이지명이 설정되지 않았습니다'}
+        <span
+          className={`cb-breadcrumb__seg ${!chapterName ? 'is-muted' : ''}`}
+          title={chapterBreadcrumbLabel}
+        >
+          {chapterBreadcrumbLabel}
+        </span>
+        <span className="cb-breadcrumb__sep">&gt;</span>
+        <span
+          className={`cb-breadcrumb__seg ${!page.title.trim() ? 'is-muted' : ''}`}
+          title={pageBreadcrumbLabel}
+        >
+          {pageBreadcrumbLabel}
         </span>
       </div>
 
       <div className="cb-pageeditor__content">
         <div className="cb-pageeditor__top">
-        <input
-          className="cb-input cb-pageeditor__title"
-          placeholder="페이지 제목"
-          value={page.title}
-          onChange={(e) => updatePageTitle(selectedPageId, e.target.value)}
-        />
-        <textarea
-          className="cb-textarea cb-pageeditor__desc"
-          placeholder="페이지 설명"
-          value={page.description ?? ''}
-          onChange={(e) => updatePageDescription(selectedPageId, e.target.value)}
-        />
-      </div>
+          <input
+            className="cb-input cb-pageeditor__title"
+            placeholder="페이지 제목"
+            value={page.title}
+            onChange={(e) => updatePageTitle(selectedPageId, e.target.value)}
+          />
+          <textarea
+            className="cb-textarea cb-pageeditor__desc"
+            placeholder="페이지 설명"
+            value={page.description ?? ''}
+            onChange={(e) => updatePageDescription(selectedPageId, e.target.value)}
+          />
+        </div>
 
         <LearningItemList pageId={selectedPageId} />
       </div>

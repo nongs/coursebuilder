@@ -91,7 +91,44 @@ const LearningItemList: React.FC<{ pageId: string }> = ({ pageId }) => {
       </div>
 
       {itemIds.length === 0 ? (
-        <div className="cb-learning__empty">학습요소가 없습니다.</div>
+        <div className="cb-learning__empty">
+          <div className="cb-learning__empty-icon" aria-hidden>
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M14 40h36v12a2 2 0 01-2 2H16a2 2 0 01-2-2V40z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                opacity="0.4"
+              />
+              <path
+                d="M18 28h28v8H18v-8z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                opacity="0.45"
+              />
+              <path
+                d="M22 16h20v8H22v-8z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                opacity="0.5"
+              />
+              <path
+                d="M24 34h10M24 44h20M24 48h14"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                opacity="0.45"
+              />
+            </svg>
+          </div>
+          <p className="cb-learning__empty-text">학습요소가 없습니다.</p>
+        </div>
       ) : (
         <div className="cb-learning__list">
           {itemIds.map((id) => {
