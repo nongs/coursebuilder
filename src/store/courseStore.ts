@@ -271,7 +271,8 @@ export const useCourseStore = create<CourseStore>((set, get) => ({
         (pid) => state.pagesById[pid]?.learningItemIds ?? []
       );
 
-      const { [weekId]: _removedWeek, ...restWeeks } = state.weeksById;
+      const restWeeks = { ...state.weeksById };
+      delete restWeeks[weekId];
 
       const nextChapters = { ...state.chaptersById };
       for (const cid of chapterIdsToDelete) delete nextChapters[cid];

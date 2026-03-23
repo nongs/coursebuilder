@@ -215,7 +215,9 @@ const LearningItemList: React.FC<{ pageId: string }> = ({ pageId }) => {
                                     updateLearningItem(id, { quiz: ensureMultipleDefaults(item) });
                                     return;
                                   }
-                                  updateLearningItem(id, { quiz: { kind: k.id } as any });
+                                  updateLearningItem(id, {
+                                    quiz: { kind: k.id } as NonNullable<LearningItem['quiz']>
+                                  });
                                 }}
                               />
                             ))}
@@ -251,7 +253,7 @@ const LearningItemList: React.FC<{ pageId: string }> = ({ pageId }) => {
                         {quiz.kind === 'multiple' && (
                           <div className="cb-mcq">
                             <div className="cb-mcq__list">
-                              {(quiz.multiple?.options ?? []).map((opt, idx) => (
+                              {(quiz.multiple?.options ?? []).map((opt) => (
                                 <div key={opt.id} className="cb-mcq__row">
                                   <Radio
                                     name={`mcq-correct-${id}`}

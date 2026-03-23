@@ -25,14 +25,13 @@ const isChapterDropId = (id: ID) => typeof id === 'string' && id.startsWith('cha
 const getChapterIdFromDropId = (id: ID) => id.replace('chapter-drop:', '');
 
 const SortablePageRow: React.FC<{
-  chapterId: ID;
   pageId: ID;
   title: string;
   isMuted: boolean;
   isActive: boolean;
   onSelect: () => void;
   onDelete: () => void;
-}> = ({ chapterId, pageId, title, isMuted, isActive, onSelect, onDelete }) => {
+}> = ({ pageId, title, isMuted, isActive, onSelect, onDelete }) => {
   const {
     setNodeRef: setPageRef,
     attributes: pageAttrs,
@@ -191,7 +190,6 @@ const SortableChapterCard: React.FC<{
               return (
             <SortablePageRow
               key={pid}
-              chapterId={chapterId}
               pageId={pid}
               title={meta.title}
               isMuted={meta.isMuted}

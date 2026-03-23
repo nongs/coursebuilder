@@ -131,7 +131,7 @@ const WeekTabs: React.FC = () => {
   };
 
   const onClickDuplicateWeek = () => {
-    if (!activeWeekId) return;
+    if (!courseId || !activeWeekId) return;
     duplicateWeek(courseId, activeWeekId);
     setToastVariant('success');
     setToastMessage('주차가 복제되었습니다.');
@@ -166,7 +166,7 @@ const WeekTabs: React.FC = () => {
   };
 
   const onConfirmDelete = () => {
-    if (!activeWeekId) return;
+    if (!courseId || !activeWeekId) return;
     deleteWeek(courseId, activeWeekId);
     setIsConfirmDeleteOpen(false);
     setToastVariant('success');
@@ -180,7 +180,7 @@ const WeekTabs: React.FC = () => {
 
     const oldIndex = weekIds.findIndex((id) => id === active.id);
     const newIndex = weekIds.findIndex((id) => id === over.id);
-    if (oldIndex < 0 || newIndex < 0) return;
+    if (oldIndex < 0 || newIndex < 0 || !courseId) return;
 
     const next = arrayMove(weekIds, oldIndex, newIndex);
     reorderWeeks(courseId, next);
