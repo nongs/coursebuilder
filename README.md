@@ -12,7 +12,6 @@
 - **편집·저장 분리**: 편집은 메모리(Zustand), **저장** 버튼으로 브라우저에 반영
 - **저장 상태 표시**: 마지막 저장 대비 변경 여부(`저장됨` / `저장필요`)
 - **데이터 관리**: JSON 내보내기·가져오기, 스키마 검증 및 덮어쓰기 확인
-- **학습요소 본문**: TipTap 리치 텍스트, **DOMPurify**로 저장·로드 시 정제(XSS 완화). 링크·이미지는 모달에서 **http(s) URL**만 입력
 
 ---
 
@@ -110,7 +109,7 @@ src/
 docs/            # 명세·요구사항 문서
 ```
 
-경로 별칭: `@components`, `@domain`, `@store`, `@api`, `@styles` (`tsconfig.json` / `vite.config.ts` 참고)
+경로 별칭: `@root`, `@components`, `@domain`, `@store`, `@api`, `@styles`, `@utils` (`tsconfig.json` / `vite.config.ts` 참고)
 
 ---
 
@@ -120,6 +119,7 @@ docs/            # 명세·요구사항 문서
 |------|------|
 | [docs/screen-spec.md](docs/screen-spec.md) | **화면 명세** — 레이아웃, 영역별 UI, 모달 |
 | [docs/feature-spec.md](docs/feature-spec.md) | **기능 명세** — 도메인, 저장·가져오기, 기능 목록 |
+| [docs/file-spec.md](docs/file-spec.md) | **파일 명세** — 디렉터리 구조, 파일 책임, 기능↔파일 대응 |
 | [docs/coursebuilder-spec.md](docs/coursebuilder-spec.md) | 초기 요구사항·기술 방향 정리 |
 
 ---

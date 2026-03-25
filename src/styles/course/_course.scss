@@ -1,4 +1,4 @@
-.cb-workspace {
+.cb-course {
   display: grid;
   grid-template-columns: 300px 1fr;
   gap: 0;
@@ -6,12 +6,11 @@
   min-height: 0;
 }
 
-.cb-workspace__left {
+.cb-course__left {
   border-right: 1px solid rgba(255, 255, 255, 0.06);
   background: rgba(7, 12, 32, 0.55);
 }
 
-.cb-workspace__main {
+.cb-course__main {
   min-width: 0;
 }
-

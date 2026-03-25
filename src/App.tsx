@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import Header from './components/layout/Header';
-import WeekTabs from '@components/course/WeekTabs';
-import CourseWorkspace from '@components/course/CourseWorkspace';
+import Header from '@components/layout/Header';
+import Week from '@components/week/Week';
+import Course from '@components/course/Course';
 import GlobalLoader from '@components/common/GlobalLoader';
 import { fetchCourseTree } from '@api/courseApi';
 import { useCourseStore } from '@store/courseStore';
@@ -40,8 +40,8 @@ const App: React.FC = () => {
       <GlobalLoader />
       <Header />
       <main className="app-root">
-        <WeekTabs />
-        <CourseWorkspace />
+        <Week />
+        <Course />
       </main>
     </>
   );

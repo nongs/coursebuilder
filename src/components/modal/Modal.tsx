@@ -27,21 +27,12 @@ const Modal: React.FC<PropsWithChildren<ModalProps>> = ({
   };
   if (!isOpen) return null;
   return (
-    <div
-      className="cb-modal__backdrop"
-      role="dialog"
-      aria-modal="true"
-      onClick={handleBackdropClick}
-    >
+    <div className="cb-modal__backdrop" role="dialog" aria-modal="true" onClick={handleBackdropClick}>
       <div className="cb-modal" onClick={(e) => e.stopPropagation()}>
         <div className="cb-modal__header">
           <h3 className="cb-modal__title">{title}</h3>
           {displayCloseIcon && (
-            <button
-              aria-label="닫기"
-              className="cb-modal__iconbtn"
-              onClick={onClose}
-            >
+            <button aria-label="닫기" className="cb-modal__iconbtn" onClick={onClose}>
               &#10005;
             </button>
           )}
@@ -54,4 +45,3 @@ const Modal: React.FC<PropsWithChildren<ModalProps>> = ({
 };
 
 export default Modal;
-

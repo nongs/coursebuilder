@@ -1,23 +1,20 @@
 import React from 'react';
 import '@styles/layout/_header.scss';
 
-import Modal from '@components/common/Modal';
-import CourseTitleModal from '@components/course/CourseTitleModal';
-import DataManagementModal from '@components/layout/DataManagementModal';
+import Modal from '@components/modal/Modal';
+import CourseTitleModal from '@components/modal/CourseTitleModal';
+import DataManagementModal from '@components/modal/DataManagementModal';
 import { getPersistedSnapshotString, useCourseStore } from '@store/courseStore';
 import { usePersistMetaStore } from '@store/persistMetaStore';
 import { useApiUiStore } from '@store/apiUiStore';
 import { saveCourseTree } from '@api/courseApi';
-import Toast from '@components/common/Toast';
+import { showToast } from '@utils/toast';
 
 const Header: React.FC = () => {
   const [isEditTitleOpen, setIsEditTitleOpen] = React.useState(false);
   const [isConfirmNewCourseOpen, setIsConfirmNewCourseOpen] = React.useState(false);
   const [isCreateCourseOpen, setIsCreateCourseOpen] = React.useState(false);
   const [isDataManagementOpen, setIsDataManagementOpen] = React.useState(false);
-  const [toastMessage, setToastMessage] = React.useState<string | null>(null);
-  const [toastVariant, setToastVariant] = React.useState<'default' | 'success' | 'danger'>('default');
-
   const courseIds = useCourseStore((s) => s.courseIds);
   const courseId = useCourseStore((s) => s.getActiveCourseId());
   const courseTitle = useCourseStore((s) =>
@@ -64,15 +61,13 @@ const Header: React.FC = () => {
     if (!courseId) return;
     updateCourseTitle(courseId, nextTitle);
     setIsEditTitleOpen(false);
-    setToastVariant('success');
-    setToastMessage('강의명이 저장되었습니다.');
+    showToast('강의명이 저장되었습니다.', 'success');
   };
 
   const onCreateCourseTitleClick = (nextTitle: string, weekCount?: number) => {
     createCourse(nextTitle, weekCount);
     setIsCreateCourseOpen(false);
-    setToastVariant('success');
-    setToastMessage('새 강의가 생성되었습니다.');
+    showToast('새 강의가 생성되었습니다.', 'success');
   };
 
   const onClickSave = async () => {
@@ -80,11 +75,9 @@ const Header: React.FC = () => {
     try {
       await saveCourseTree(getCourseTreeSnapshot());
       syncBaselineFromStore();
-      setToastVariant('success');
-      setToastMessage('강의 데이터가 저장되었습니다.');
+      showToast('강의 데이터가 저장되었습니다.', 'success');
     } catch {
-      setToastVariant('danger');
-      setToastMessage('저장에 실패했습니다. 다시 시도해주세요.');
+      showToast('저장에 실패했습니다. 다시 시도해주세요.', 'danger');
     } finally {
       endRequest();
     }
@@ -160,14 +153,7 @@ const Header: React.FC = () => {
         </div>
       </header>
 
-      <DataManagementModal
-        isOpen={isDataManagementOpen}
-        onClose={() => setIsDataManagementOpen(false)}
-        onToast={(message, variant) => {
-          setToastVariant(variant);
-          setToastMessage(message);
-        }}
-      />
+      <DataManagementModal isOpen={isDataManagementOpen} onClose={() => setIsDataManagementOpen(false)} />
 
       <CourseTitleModal
         isOpen={isEditTitleOpen}
@@ -209,12 +195,6 @@ const Header: React.FC = () => {
         onSaveClick={onCreateCourseTitleClick}
       />
 
-      <Toast
-        isOpen={toastMessage !== null}
-        message={toastMessage ?? ''}
-        onClose={() => setToastMessage(null)}
-        variant={toastVariant}
-      />
     </>
   );
 };

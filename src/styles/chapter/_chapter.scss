@@ -1,33 +1,33 @@
-.cb-chaptertree {
+.cb-chapters {
   padding: 16px;
 }
 
-.cb-chaptertree__top {
+.cb-chapters__top {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 12px;
 }
 
-.cb-chaptertree__title {
+.cb-chapters__title {
   margin: 0;
   font-size: 14px;
   font-weight: 800;
   color: rgba(245, 247, 255, 0.92);
 }
 
-.cb-chaptertree__list {
+.cb-chapters__list {
   display: flex;
   flex-direction: column;
   gap: 10px;
   min-height: 80px;
 }
 
-.cb-chaptertree__footer {
+.cb-chapters__footer {
   margin-top: 14px;
 }
 
-.cb-chaptertree__footer .cb-btn {
+.cb-chapters__footer .cb-btn {
   width: 100%;
 }
 
@@ -183,4 +183,3 @@
 .is-muted {
   color: rgba(245, 247, 255, 0.55);
 }
-

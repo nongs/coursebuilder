@@ -18,7 +18,7 @@ export interface LearningItem {
   quiz?: {
     kind: 'short' | 'essay' | 'multiple';
     shortAnswer?: string;
-    /** 서술형 평가기준 — 정제 HTML */
+    /** 서술형 평가기준(일반 텍스트) */
     rubric?: string;
     multiple?: {
       options: Array<{ id: ID; label: string }>;

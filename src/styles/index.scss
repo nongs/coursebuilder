@@ -6,9 +6,9 @@
 @use './components/radio';
 @use './components/global-loader';
 @use './components/data-management';
-@use './course/week-tabs';
-@use './course/workspace';
-@use './course/chapter-tree';
-@use './course/page-editor';
-@use './course/learning-items';
+@use './week/week-tabs';
+@use './course/course';
+@use './chapter/chapter';
+@use './page/page-detail';
+@use './learningItem/learning-items';
 

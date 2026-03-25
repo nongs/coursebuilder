@@ -22,7 +22,8 @@
       "@styles/*": ["styles/*"],
       "@domain/*": ["domain/*"],
       "@store/*": ["store/*"],
-      "@api/*": ["api/*"]
+      "@api/*": ["api/*"],
+      "@utils/*": ["utils/*"]
     }
   },
   "include": ["src"],

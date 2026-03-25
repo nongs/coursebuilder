@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import Modal from '@components/common/Modal';
+import Modal from '@components/modal/Modal';
 
 export interface CourseTitleModalProps {
   isOpen: boolean;
@@ -95,4 +95,3 @@ const CourseTitleModal: React.FC<CourseTitleModalProps> = ({
 };
 
 export default CourseTitleModal;
-

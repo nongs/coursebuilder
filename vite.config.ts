@@ -23,7 +23,8 @@ export default defineConfig(({ mode }) => {
         '@styles': path.resolve(__dirname, './src/styles'),
         '@domain': path.resolve(__dirname, './src/domain'),
         '@store': path.resolve(__dirname, './src/store'),
-        '@api': path.resolve(__dirname, './src/api')
+        '@api': path.resolve(__dirname, './src/api'),
+        '@utils': path.resolve(__dirname, './src/utils')
       }
     },
     server: {

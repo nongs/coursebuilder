@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Modal from '@components/common/Modal';
+import Modal from '@components/modal/Modal';
 import type { CourseTreeState } from '@domain/types';
 import { COURSE_TREE_SCHEMA_VERSION } from '@domain/types';
 import { validateCourseTreeImport } from '@domain/courseTreeImport';
@@ -7,15 +7,15 @@ import { useCourseStore } from '@store/courseStore';
 import { usePersistMetaStore } from '@store/persistMetaStore';
 import { useApiUiStore } from '@store/apiUiStore';
 import { saveCourseTree } from '@api/courseApi';
+import { showToast } from '@utils/toast';
 import '@styles/components/_data-management.scss';
 
 export interface DataManagementModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onToast: (message: string, variant: 'default' | 'success' | 'danger') => void;
 }
 
-const DataManagementModal: React.FC<DataManagementModalProps> = ({ isOpen, onClose, onToast }) => {
+const DataManagementModal: React.FC<DataManagementModalProps> = ({ isOpen, onClose }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const getCourseTreeSnapshot = useCourseStore((s) => s.getCourseTreeSnapshot);
   const hydrate = useCourseStore((s) => s.hydrate);
@@ -49,9 +49,9 @@ const DataManagementModal: React.FC<DataManagementModalProps> = ({ isOpen, onClo
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      onToast('JSON 파일로 내보냈습니다.', 'success');
+      showToast('JSON 파일로 내보냈습니다.', 'success');
     } catch {
-      onToast('내보내기에 실패했습니다.', 'danger');
+      showToast('내보내기에 실패했습니다.', 'danger');
     }
   };
 
@@ -71,20 +71,20 @@ const DataManagementModal: React.FC<DataManagementModalProps> = ({ isOpen, onClo
       try {
         parsed = JSON.parse(text) as unknown;
       } catch {
-        onToast('JSON 형식이 올바르지 않습니다.', 'danger');
+        showToast('JSON 형식이 올바르지 않습니다.', 'danger');
         return;
       }
 
       const result = validateCourseTreeImport(parsed);
       if (!result.ok) {
-        onToast(result.message, 'danger');
+        showToast(result.message, 'danger');
         return;
       }
 
       setPendingState(result.state);
       setImportConfirmOpen(true);
     } catch {
-      onToast('가져오기에 실패했습니다.', 'danger');
+      showToast('가져오기에 실패했습니다.', 'danger');
     } finally {
       endRequest();
     }
@@ -102,12 +102,12 @@ const DataManagementModal: React.FC<DataManagementModalProps> = ({ isOpen, onClo
       hydrate(pendingState);
       await saveCourseTree(getCourseTreeSnapshot());
       syncBaselineFromStore();
-      onToast('데이터를 불러와 저장했습니다.', 'success');
+      showToast('데이터를 불러와 저장했습니다.', 'success');
       setPendingState(null);
       setImportConfirmOpen(false);
       onClose();
     } catch {
-      onToast('가져오기에 실패했습니다.', 'danger');
+      showToast('가져오기에 실패했습니다.', 'danger');
     } finally {
       endRequest();
     }

@@ -1,9 +1,10 @@
 import React from 'react';
-import '@styles/course/_page-editor.scss';
+import '@styles/page/_page-detail.scss';
 import { useCourseStore } from '@store/courseStore';
-import LearningItemList from './LearningItemList';
+import { LearningItemList } from '@components/learningItem';
+import { PageEmptyIcon } from '@components/common/icons';
 
-const PageEditor: React.FC = () => {
+const PageDetail: React.FC = () => {
   const selectedPageId = useCourseStore((s) => s.selectedPageId);
   const page = useCourseStore((s) => (selectedPageId ? s.pagesById[selectedPageId] : undefined));
   const selectedWeekId = useCourseStore((s) => s.selectedWeekId);
@@ -22,30 +23,12 @@ const PageEditor: React.FC = () => {
 
   if (!selectedPageId || !page) {
     return (
-      <div className="cb-pageeditor cb-pageeditor--empty">
-        <div className="cb-pageeditor__empty-inner">
-          <div className="cb-pageeditor__empty-icon" aria-hidden>
-            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M16 8h24l12 12v32a4 4 0 01-4 4H16a4 4 0 01-4-4V12a4 4 0 014-4z"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                opacity="0.4"
-              />
-              <path
-                d="M40 8v12h12"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                opacity="0.4"
-              />
-              <circle cx="32" cy="34" r="8" stroke="currentColor" strokeWidth="2" strokeDasharray="4 3" opacity="0.5" />
-            </svg>
+      <div className="cb-pagedetail cb-pagedetail--empty">
+        <div className="cb-pagedetail__empty-inner">
+          <div className="cb-pagedetail__empty-icon" aria-hidden>
+            <PageEmptyIcon />
           </div>
-          <p className="cb-pageeditor__empty-text">선택된 페이지가 없습니다.</p>
+          <p className="cb-pagedetail__empty-text">선택된 페이지가 없습니다.</p>
         </div>
       </div>
     );
@@ -56,7 +39,7 @@ const PageEditor: React.FC = () => {
   const pageBreadcrumbLabel = page.title.trim() || '페이지명이 설정되지 않았습니다';
 
   return (
-    <div className="cb-pageeditor">
+    <div className="cb-pagedetail">
       <div className="cb-breadcrumb cb-breadcrumb--flush" aria-label="페이지 경로">
         <span className="cb-breadcrumb__seg" title={weekBreadcrumbLabel}>
           {weekBreadcrumbLabel}
@@ -77,16 +60,16 @@ const PageEditor: React.FC = () => {
         </span>
       </div>
 
-      <div className="cb-pageeditor__content">
-        <div className="cb-pageeditor__top">
+      <div className="cb-pagedetail__content">
+        <div className="cb-pagedetail__top">
           <input
-            className="cb-input cb-pageeditor__title"
+            className="cb-input cb-pagedetail__title"
             placeholder="페이지 제목"
             value={page.title}
             onChange={(e) => updatePageTitle(selectedPageId, e.target.value)}
           />
           <textarea
-            className="cb-textarea cb-pageeditor__desc"
+            className="cb-textarea cb-pagedetail__desc"
             placeholder="페이지 설명"
             value={page.description ?? ''}
             onChange={(e) => updatePageDescription(selectedPageId, e.target.value)}
@@ -99,5 +82,4 @@ const PageEditor: React.FC = () => {
   );
 };
 
-export default PageEditor;
-
+export default PageDetail;
